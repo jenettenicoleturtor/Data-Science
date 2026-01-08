@@ -1,0 +1,503 @@
+
+
+install.packages()
+Usage: Download a library from the internet.
+Example: install.packages("tidyverse")
+
+
+library()
+Usage: Load a library into your current session.
+Example: library(dplyr)
+
+
+c()
+Usage: Combine values into a vector (list of items).
+Example: prices <- c(99, 150, 200)
+
+
+class()
+Usage: Check the data type (numeric, character, etc.).
+Example: class(prices)
+
+
+length()
+Usage: Find out how many items are in a vector.
+Example: length(prices)
+
+
+seq()
+Usage: Generate a sequence of numbers.
+Example: seq(1, 10, by = 2)
+
+
+rep()
+Usage: Repeat values.
+Example: rep("Chickenjoy", 5)
+
+
+ls()
+Usage: List all objects in your environment.
+Example: ls()
+
+
+rm()
+Usage: Remove an object from your environment.
+Example: rm(prices)
+
+
+getwd()
+Usage: See your current working directory (folder).
+Example: getwd()
+
+
+read_csv()
+Usage: Read a CSV file into a "tibble" (modern data frame).
+Example: sales_data <- read_csv("jollibee_sales.csv")
+
+
+head()
+Usage: View the first 6 rows of data.
+Example: head(sales_data)
+
+
+tail()
+Usage: View the last 6 rows of data.
+Example: tail(sales_data)
+
+
+glimpse()
+Usage: See a vertical summary of columns and types.
+Example: glimpse(sales_data)
+
+
+summary()
+Usage: Statistical summary (Min, Max, Mean) of all columns.
+Example: summary(sales_data)
+
+
+dim()
+Usage: Get the dimensions (number of rows and columns).
+Example: dim(sales_data)
+
+
+names()
+Usage: List the column names.
+Example: names(sales_data)
+
+
+unique()
+Usage: Find all unique values in a column.
+Example: unique(sales_data$Branch)
+
+
+View()
+Usage: Open the dataset in a spreadsheet-like viewer.
+Example: View(sales_data)
+
+
+str()
+Usage: Display the internal structure of an object.
+Example: str(sales_data)
+
+
+filter()
+Usage: Extract specific rows based on column values.
+Example: sales_data %>% filter(Region == "NCR", Revenue > 1000)
+
+
+select()
+Usage: Pick specific columns.
+Example: sales_data %>% select(Date, Revenue)
+
+
+mutate()
+Usage: Create new columns or modify existing ones.
+Example: sales_data %>% mutate(Tax = Revenue * 0.12)
+
+
+arrange()
+Usage: Sort rows by a column's values.
+Example: sales_data %>% arrange(desc(Revenue))
+
+
+summarize()
+Usage: Collapse many values into a single summary.
+Example: sales_data %>% summarize(Total_Sales = sum(Revenue))
+
+
+group_by()
+Usage: Group data for calculation by category.
+Example: sales_data %>% group_by(Store_Type) %>% summarize(Avg_Sales = mean(Revenue))
+
+
+rename()
+Usage: Rename a column.
+Example: sales_data %>% rename(City = Branch_Location)
+
+
+count()
+Usage: Count the number of rows per category.
+Example: sales_data %>% count(Product_Name)
+
+
+relocate()
+Usage: Move columns to a different position.
+Example: sales_data %>% relocate(Date, .before = Revenue)
+
+
+distinct()
+Usage: Keep only unique rows (remove duplicates).
+Example: sales_data %>% distinct(Customer_ID)
+
+
+slice()
+Usage: Pick rows based on their position (row number).
+Example: sales_data %>% slice(1:10)
+
+
+pull()
+Usage: Extract a single column as a vector.
+Example: revenues <- sales_data %>% pull(Revenue)
+
+
+left_join()
+Usage: Merge two tables by a common ID (keeps all left rows).
+Example: sales %>% left_join(store_info, by = "StoreID")
+
+
+inner_join()
+Usage: Merge tables, keeping only matching rows in both.
+Example: sales %>% inner_join(coupons, by = "Date")
+
+
+bind_rows()
+Usage: Stack two datasets on top of each other.
+Example: combined_data <- bind_rows(jan_sales, feb_sales)
+
+
+pivot_longer()
+Usage: Turn columns into rows (make data "tall").
+Example: data %>% pivot_longer(cols = Q1:Q4, names_to = "Quarter", values_to = "Sales")
+
+
+pivot_wider()
+Usage: Turn rows into columns (make data "wide").
+Example: data %>% pivot_wider(names_from = Quarter, values_from = Sales)
+
+
+separate()
+Usage: Split one column into two (e.g., "Date" into "Year" and "Month").
+Example: data %>% separate(Date, into = c("Year", "Month", "Day"), sep = "-")
+
+
+unite()
+Usage: Combine two columns into one.
+Example: data %>% unite("Full_Name", First_Name, Last_Name, sep = " ")
+
+
+drop_na()
+Usage: Remove any rows containing missing values.
+Example: data %>% drop_na(Revenue)
+IV. Data Cleaning & Handling Missing Values
+
+
+is.na()
+Usage: Check for missing values.
+Example: sum(is.na(sales_data))
+
+
+replace_na()
+Usage: Replace NA with a specific value.
+Example: data %>% mutate(Revenue = replace_na(Revenue, 0))
+
+
+na_if()
+Usage: Convert a specific value (like "Unknown") to NA.
+Example: data %>% mutate(Gender = na_if(Gender, "Unknown"))
+
+
+coalesce()
+Usage: Find the first non-missing value across columns.
+Example: mutate(Phone = coalesce(Work_Phone, Home_Phone))
+
+
+str_trim()
+Usage: Remove leading/trailing white spaces in text.
+Example: mutate(City = str_trim(City))
+
+
+str_to_lower()
+Usage: Convert text to lowercase.
+Example: mutate(Product = str_to_lower(Product))
+
+
+str_detect()
+Usage: Search for a pattern in text.
+Example: filter(Product, str_detect(Product, "Chicken"))
+
+
+str_replace()
+Usage: Replace a pattern in text with something else.
+Example: mutate(Note = str_replace(Note, "Sold", "Purchased"))
+
+
+parse_number()
+Usage: Extract numbers from a string (e.g., "$10.50" to 10.50).
+Example: mutate(Price = parse_number(Price_String))
+
+
+round()
+Usage: Round numbers to specified decimals.
+Example: mutate(Revenue = round(Revenue, 2))
+
+
+
+ggplot()
+Usage: Initialize a plot object.
+Example: ggplot(data = sales_data, aes(x = Date, y = Revenue))
+
+
+geom_point()
+Usage: Create a scatter plot.
+Example: ggplot(...) + geom_point()
+
+
+geom_line()
+Usage: Create a line chart.
+Example: ggplot(...) + geom_line()
+
+
+geom_bar()
+Usage: Create a bar chart.
+Example: ggplot(...) + geom_bar()
+
+
+geom_histogram()
+Usage: Create a histogram for distribution.
+Example: ggplot(...) + geom_histogram(bins = 30)
+
+
+geom_boxplot()
+Usage: Create a box-and-whisker plot for outliers.
+Example: ggplot(...) + geom_boxplot()
+
+
+facet_wrap()
+Usage: Split one plot into multiple small plots by category.
+Example: ggplot(...) + facet_wrap(~Region)
+
+
+labs()
+Usage: Add titles and axis labels.
+Example: ggplot(...) + labs(title = "Daily Sales", x = "Date", y = "PHP")
+
+
+theme_minimal()
+Usage: Apply a clean, professional look to the chart.
+Example: ggplot(...) + theme_minimal()
+
+
+ggsave()
+Usage: Save the last plot as an image file.
+Example: ggsave("sales_chart.png")
+
+
+mean()
+Usage: Calculate average.
+Example: mean(sales_data$Revenue, na.rm = TRUE)
+
+
+median()
+Usage: Calculate middle value.
+Example: median(sales_data$Revenue)
+
+
+sd()
+Usage: Calculate standard deviation.
+Example: sd(sales_data$Revenue)
+
+
+cor()
+Usage: Calculate correlation between two variables.
+Example: cor(data$Advertising, data$Sales)
+
+
+t.test()
+Usage: Compare means between two groups.
+Example: t.test(Revenue ~ Store_Type, data = sales_data)
+
+
+lm()
+Usage: Create a Linear Regression model.
+Example: model <- lm(Sales ~ Promo_Budget + Weather, data = df)
+
+
+predict()
+Usage: Use a model to predict new values.
+Example: predict(model, new_data)
+
+
+quantile()
+Usage: Find percentiles (e.g., the top 25% threshold).
+Example: quantile(sales_data$Revenue, 0.75)
+
+
+table()
+Usage: Create a simple frequency table.
+Example: table(sales_data$Payment_Method)
+
+
+prop.table()
+Usage: Convert a table to percentages.
+Example: prop.table(table(sales_data$Branch))
+VII. Working with Dates (lubridate)
+
+
+today()
+Usage: Get the current date.
+Example: today()
+
+
+ymd()
+Usage: Convert text "2026-01-08" to a Date object.
+Example: ymd("2026-01-08")
+
+
+year()
+Usage: Extract the year from a date.
+Example: year(sales_data$Date)
+
+
+month()
+Usage: Extract the month from a date.
+Example: month(sales_data$Date, label = TRUE)
+
+
+wday()
+Usage: Get the day of the week (Monday, Tuesday, etc.).
+Example: wday(sales_data$Date, label = TRUE)
+
+
+floor_date()
+Usage: Round a date down (e.g., find the start of the month).
+Example: floor_date(sales_data$Date, "month")
+
+
+as_datetime()
+Usage: Convert a string to Date-Time format.
+Example: as_datetime("2026-01-08 14:30:00")
+
+
+interval()
+Usage: Calculate the time difference between two dates.
+Example: interval(start_date, end_date) / days(1)
+
+
+now()
+Usage: Get current date and exact time.
+Example: now()
+
+
+make_date()
+Usage: Combine year, month, day columns into one date.
+Example: make_date(year = 2026, month = 1, day = 8)
+
+
+if_else()
+Usage: Vectorized "If this, then that".
+Example: mutate(Status = if_else(Revenue > 5000, "High", "Low"))
+
+
+case_when()
+Usage: Complex "If-Else" for multiple conditions.
+Example: case_when(Rev < 100 ~ "Low", Rev < 500 ~ "Med", TRUE ~ "High")
+
+
+function()
+Usage: Create your own reusable tool.
+Example: calc_vat <- function(x) { x * 0.12 }
+
+
+for()
+Usage: Loop through a sequence.
+Example: for(i in 1:5) { print(i) }
+
+
+apply()
+Usage: Apply a function to rows or columns of a matrix.
+Example: apply(my_matrix, 1, sum)
+
+
+map()
+Usage: Apply a function to every element of a list/vector (modern loop).
+Example: map(my_list, summary)
+
+
+identical()
+Usage: Check if two objects are exactly the same.
+Example: identical(vec1, vec2)
+
+
+any()
+Usage: Returns TRUE if at least one element meets a condition.
+Example: any(sales_data$Revenue > 10000)
+
+
+all()
+Usage: Returns TRUE if every element meets a condition.
+Example: all(sales_data$Revenue > 0)
+
+
+tryCatch()
+Usage: Run code and handle errors without crashing.
+Example: tryCatch(read_csv("wrong_name.csv"), error = function(e) print("File not found"))
+
+
+write_csv()
+Usage: Save your cleaned data as a CSV file.
+Example: write_csv(cleaned_data, "jollibee_cleaned.csv")
+
+
+top_n()
+Usage: Get the top N rows based on a value.
+Example: sales_data %>% top_n(5, Revenue)
+
+
+sample_n()
+Usage: Pick N random rows for testing.
+Example: sample_n(sales_data, 100)
+
+
+set.seed()
+Usage: Ensure random results are reproducible (the same every time).
+Example: set.seed(123)
+
+
+rmarkdown::render()
+Usage: Turn an R script into a professional PDF or HTML report.
+Example: render("monthly_report.Rmd")
+
+
+expand.grid()
+Usage: Create all possible combinations of variables.
+Example: expand.grid(Branches = c("A", "B"), Months = 1:12)
+
+
+which.max()
+Usage: Find the row index of the highest value.
+Example: which.max(sales_data$Revenue)
+
+
+head(..., n=20)
+Usage: View a specific number of rows.
+Example: head(sales_data, 20)
+
+
+anti_join()
+Usage: Find rows in Table A that are not in Table B.
+Example: customers %>% anti_join(blacklisted_customers)
+
+
+options(scipen = 999)
+Usage: Disable scientific notation (like 1e+05) to show full numbers.
+Example: options(scipen = 999)
